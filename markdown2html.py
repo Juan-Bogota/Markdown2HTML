@@ -24,10 +24,11 @@ if __name__ == "__main__":
         other = []
         for line in readme.readlines():
             count = 0
-            line = line.replace("**", "<b>", 1)
-            line = line.replace("**", "</b>", 1)
-            line = line.replace("__", "<em>", 1)
-            line = line.replace("__", "</em>", 1)
+            while line.find("**") != -1 or line.find("__") != -1:
+                line = line.replace("**", "<b>", 1)
+                line = line.replace("**", "</b>", 1)
+                line = line.replace("__", "<em>", 1)
+                line = line.replace("__", "</em>", 1)
             while line.find("[[") != -1 and line.find("]]") != -1:
                 start = line.index("[[") + 2
                 end = line.index("]]")
