@@ -22,8 +22,11 @@ if __name__ == "__main__":
         simbols = ["-", "*", " ", "#"]
         other = []
         for line in readme.readlines():
-
             count = 0
+            line = line.replace("**", "<b>", 1)
+            line = line.replace("**", "</b>", 1)
+            line = line.replace("__", "<em>", 1)
+            line = line.replace("__", "</em>", 1)
             for caracter in line:
                 if caracter not in simbols:
                     my_list = []
