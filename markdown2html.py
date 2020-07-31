@@ -17,16 +17,34 @@ if __name__ == "__main__":
         sys.exit(1)
     with open(sys.argv[1], "r") as readme:
         text = ""
+        li_list = ""
+        my_list = []
         for line in readme.readlines():
             if line != "\n":
                 count = 0
                 for caracter in line:
+                    if caracter != "-":
+                        my_list = []
+                        li_list = ""
                     if caracter == "#":
                         count += 1
-                    else:
+                        continue
+                    elif count:
                         word = (line[count + 1:-1])
+                        text += "<h{}>{}</h{}>\n".format(count, word, count)
+                        tmp = text
                         break
-                text += "<h{}>{}</h{}>\n".format(count, word, count)
+                    if caracter == "-":
+                        if my_list:
+                            li_list = ""
+                            text = tmp
+                        word = (line[2:-1])
+                        my_list.append(word)
+                        for li in my_list:
+                            li_list += "<li>{}</li>\n".format(li)
+                        tmp = text
+                        text += "<ul>\n{}</ul>\n".format(li_list)
+                        break
 
     with open(sys.argv[2], "w") as html:
         html.write(text)
