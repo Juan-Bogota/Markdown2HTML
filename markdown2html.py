@@ -6,6 +6,7 @@
 
 import sys
 import os.path as path
+import hashlib
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
@@ -27,6 +28,22 @@ if __name__ == "__main__":
             line = line.replace("**", "</b>", 1)
             line = line.replace("__", "<em>", 1)
             line = line.replace("__", "</em>", 1)
+            if line.find("[[") != -1 and line.find("]]") != -1:
+                start = line.index("[[") + 2
+                end = line.index("]]")
+                new_hash = line[start:end]
+                hash_md = hashlib.md5(new_hash.encode("utf")).hexdigest()
+                line = line.replace(new_hash, hash_md, 1)
+                line = line.replace("[[", "")
+                line = line.replace("]]", "")
+            if line.find("((") != -1 and line.find("))") != -1:
+                start = line.index("((") + 2
+                end = line.index("))")
+                remove = line[start:end]
+                line = line.replace("c", "")
+                line = line.replace("C", "")
+                line = line.replace("((", "")
+                line = line.replace("))", "")
             for caracter in line:
                 if caracter not in simbols:
                     my_list = []
