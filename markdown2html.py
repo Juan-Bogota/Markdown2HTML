@@ -15,4 +15,20 @@ if __name__ == "__main__":
     if not path.exists(sys.argv[1]):
         sys.stderr.write("Missing {}\n".format(sys.argv[1]))
         sys.exit(1)
+    readme = open(sys.argv[1], "r")
+    text = ""
+    for line in readme.readlines():
+        if line != "\n":
+            count = 0
+            for caracter in line:
+                if caracter == "#":
+                    count += 1
+                else:
+                    word = (line[count + 1:-1])
+                    break
+            text += "<h{}>{}</h{}>\n".format(count, word, count)
+    readme.close()
+    html = open(sys.argv[2], "w")
+    html.write(text)
+    html.close()
     sys.exit(0)
