@@ -20,6 +20,7 @@ if __name__ == "__main__":
         text_ant = "\n"
         my_list = []
         simbols = ["-", "*", " ", "#"]
+        other = []
         for line in readme.readlines():
 
             count = 0
@@ -34,8 +35,11 @@ if __name__ == "__main__":
                         text += "<p>\n{}</p>\n".format(line)
                     else:
                         text = tmp
-                        text += "<p>\n{}<br>\n{}</p>\n".format(
-                            text_ant, line)
+                        other.append(text_ant)
+                        other_str = ""
+                        for p in other:
+                            other_str += "{}<br>\n".format(p)
+                        text += "<p>\n{}{}</p>\n".format(other_str, line)
                     text_ant = line
                     break
                 if caracter == "#":
