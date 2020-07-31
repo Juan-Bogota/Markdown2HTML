@@ -17,15 +17,13 @@ if __name__ == "__main__":
         sys.exit(1)
     with open(sys.argv[1], "r") as readme:
         text = ""
-        li_list = ""
         my_list = []
         for line in readme.readlines():
             if line != "\n":
                 count = 0
                 for caracter in line:
-                    if caracter != "-":
+                    if caracter != "-" and caracter != "*":
                         my_list = []
-                        li_list = ""
                     if caracter == "#":
                         count += 1
                         continue
@@ -34,16 +32,19 @@ if __name__ == "__main__":
                         text += "<h{}>{}</h{}>\n".format(count, word, count)
                         tmp = text
                         break
-                    if caracter == "-":
+                    if caracter == "-" or caracter == "*":
                         if my_list:
-                            li_list = ""
                             text = tmp
+                        li_list = ""
                         word = (line[2:-1])
                         my_list.append(word)
                         for li in my_list:
                             li_list += "<li>{}</li>\n".format(li)
                         tmp = text
-                        text += "<ul>\n{}</ul>\n".format(li_list)
+                        if caracter == "-":
+                            text += "<ul>\n{}</ul>\n".format(li_list)
+                        else:
+                            text += "<ol>\n{}</ol>\n".format(li_list)
                         break
 
     with open(sys.argv[2], "w") as html:
