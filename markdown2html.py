@@ -41,8 +41,9 @@ if __name__ == "__main__":
                 start = line.index("((") + 2
                 end = line.index("))")
                 remove = line[start:end]
-                line = line.replace("c", "", 1)
-                line = line.replace("C", "", 1)
+                remove1 = remove.replace("c", "")
+                remove1 = remove1.replace("C", "")
+                line = line.replace(remove, remove1)
                 line = line.replace("((", "", 1)
                 line = line.replace("))", "", 1)
             for caracter in line:
