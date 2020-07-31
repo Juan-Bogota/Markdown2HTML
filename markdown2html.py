@@ -19,9 +19,9 @@ if __name__ == "__main__":
     with open(sys.argv[1], "r") as readme:
         text, tmp = "", ""
         text_ant = "\n"
-        my_list = []
+        my_list, other = [], []
         simbols = ["-", "*", " ", "#"]
-        other = []
+
         for line in readme.readlines():
             count = 0
             while line.find("**") != -1 or line.find("__") != -1:
@@ -34,7 +34,7 @@ if __name__ == "__main__":
                 end = line.index("]]")
                 new_hash = line[start:end]
                 hash_md = hashlib.md5(new_hash.encode("utf")).hexdigest()
-                line = line.replace(new_hash, hash_md, 1)
+                line = line.replace(new_hash, hash_md)
                 line = line.replace("[[", "", 1)
                 line = line.replace("]]", "", 1)
             while line.find("((") != -1 and line.find("))") != -1:
